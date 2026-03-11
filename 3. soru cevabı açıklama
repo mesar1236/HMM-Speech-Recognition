@@ -1,0 +1,43 @@
+1. soru açıklaması:
+HMM'de emisyon olasılıkları her bir fonemin gelme olasıgılını temsil eder.Yani bir durumda mikrofonun 
+duydugu sesleerin gelme olasılıklarını temsl eder.
+Gürültü (noise) ise dış ortamdan gelen, kelimeyle doğrudan ilişkili olmayan seslerdir.
+ve eger veriye gürültü karışırsa şunlar olur:
+a.Gözlemlerimiz daha belirsiz hale gelir:
+  Örneğin “e” fonemi yüksek frekansta olma eğilimindeykenaraya giren gürültü sebebiyle sistem 
+  “Low” gözlemini de alabilir.Bu da P(High | e) olasılıgını azalabilir bu durum olasılık dagılımını etkileyebilir.
+b.Emisyonda beklenen olasılık değerleri değişir:
+  Gürültü nedeniyle modelin beklediği dağılım değişir.normalde P(High | e):0.7 iken 0.5 e düşebilir 
+  ve modelin dogru tahmin etme olasılıgını(accuary) düşürür.
+c.Fonem tahminleri daha yanlış olur:
+  Eğer emisyonlar gürültü nedeniyle değişirse, algoritma yanlış fonem dizilerini tercih edebilir.
+ÇÖZÜM YOLLARI:
+    Gürültü azaltma (denoising) teknikleri uygulamak.
+    HMM eğitimi sırasında gürültülü veriyi de kullanarak emisyon olasılıklarını güncellemek.
+    Ses verisini filtreleme veya özellik çıkarımıyla (MFCC gibi) gürültünün etkisini azaltmak.
+    
+  ÖZET OLARAK:
+  Gürültü, HMM’de emisyon olasılıklarını doğrudan etkiler. Durum başına hangi gözlemlerin
+  gözleneceğini belirsizleştirir ve modelin doğru fonem dizisini tahmin etme olasılığını düşürür. 
+  Bu nedenle gerçek sistemlerde gürültü azaltma ve istatistiksel güncellemeler kritik öneme sahiptir.
+
+  2.soru açıklaması:
+  Viterbi algoritması, HMM ile gözlem dizisinden en olası durum dizisini bulmakta çok etkilidir.
+  Ancak, gerçek hayatta binlerce kelimeyi ve yüzlerce fonemi tanımamız gerektiğinde bazı sorunlar ortaya çıkar:
+
+      a. Hesaplama karmaşıklığı:
+      Viterbi algoritması, her adımda tüm olası durumlardan en iyisini seçer.
+      Küçük sistemlerde (ör. 2-3 fonem) hızlıdır.
+      Ancak binlerce kelime ve yüzlerce fonem olduğunda, durum sayısı çok artar.
+      Hesaplamalar katlanarak çoğalır, hesaplama maliyeti çok yüksek olur.
+
+      b.Gürültü ve değişkenliklere karşı hassasiyet:
+      HMM, gözlemler arasındaki bağımlılıkları sınırlı şekilde modelleyebilir.
+      Gerçek ses verisi çok değişkendir: konuşma hızı, aksan, mikrofon kalitesi, arka plan gürültüsü.
+      Bu durumlarda Viterbi + HMM hatalı tahminler yapabilir, çünkü her durum yalnızca bir sonraki duruma bağlıdır ve karmaşık ilişkileri öğrenemez
+
+
+  ÖZET OLARAK:
+          Binlerce kelime ve değişken konuşma koşullarında HMM + Viterbi, hem hesaplama açısından pahalı hem de sınırlı özellikleri
+      nedeniyle yetersiz kalır.Bu nedenle günümüzde konuşma tanıma sistemlerinde Deep Learning tabanlı modeller, uzun bağımlılıkları 
+      ve karmaşık ses desenlerini öğrenebilme yetenekleri nedeniyle tercih edilmektedir.
